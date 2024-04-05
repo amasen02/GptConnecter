@@ -2,6 +2,7 @@ const express = require('express');
 const WebSocket = require('ws');
 const http = require('http');
 const crypto = require('crypto');
+const cors = require('cors'); // Import cors
 const app = express();
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
@@ -37,6 +38,7 @@ wss.on('connection', (ws) => {
 
 app.use(logRequest);
 app.use(express.json());
+app.use(cors()); // Use cors middleware
 
 const handleWebSocketMessage = (message, client) => {
   const data = JSON.parse(message);
